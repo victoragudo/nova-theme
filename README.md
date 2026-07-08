@@ -1,11 +1,22 @@
 # Nova Theme
 
+[![JetBrains Marketplace](https://img.shields.io/badge/JetBrains%20Marketplace-Nova%20Theme-FF4D97)](https://plugins.jetbrains.com/plugin/32800-nova-theme)
+
 A vibrant, space-inspired theme for GoLand and all JetBrains IDEs, built for the [Islands UI](https://blog.jetbrains.com/platform/2025/12/meet-the-islands-theme-the-new-default-look-for-jetbrains-ides/). Editor and tool windows float as rounded islands over a deep-space canvas, and the syntax palette bursts with supernova energy.
+
+Get it on the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/32800-nova-theme).
+
+![Nova](screenshots/nova-hero.png)
 
 Two variants:
 
 - **Nova Dark**: deep-space navy islands (`#1A1E36`) over a near-black cosmic canvas (`#08090F`).
+
+  ![Nova Dark](screenshots/nova-dark.png)
+
 - **Nova Light**: bright stellar islands (`#FAFBFF`) over a soft nebula canvas (`#DFE2EE`), same high-energy accents corrected for daylight contrast.
+
+  ![Nova Light](screenshots/nova-light.png)
 
 Requires IDE version 2025.2 or newer.
 
@@ -31,7 +42,7 @@ Nova ships with [Commit Mono](https://commitmono.com) (SIL OFL 1.1), a neutral c
 
 ## Install
 
-From JetBrains Marketplace: search for "Nova Theme" in `Settings | Plugins | Marketplace`.
+From [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/32800-nova-theme): search for "Nova Theme" in `Settings | Plugins | Marketplace`.
 
 From disk:
 
