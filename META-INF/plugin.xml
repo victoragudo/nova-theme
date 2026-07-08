@@ -1,0 +1,39 @@
+<idea-plugin>
+    <id>com.victoragudo.nova.theme</id>
+    <name>Nova Theme</name>
+    <version>1.0.1</version>
+    <vendor url="https://github.com/victoragudo">Victor Agudo</vendor>
+    <description><![CDATA[
+        <p><b>Nova</b> is a vibrant, space-inspired theme built for the new Islands UI.</p>
+        <p>Editor and tool windows float as rounded islands over a deep-space canvas,
+        while the syntax palette bursts with supernova energy: magenta keywords,
+        electric cyan variables, nebula purple types, star gold functions and
+        aurora green strings.</p>
+        <ul>
+            <li><b>Nova Dark</b>: deep-space navy islands over a near-black cosmic canvas.</li>
+            <li><b>Nova Light</b>: bright stellar islands with the same high-energy accents,
+            contrast-corrected for daylight.</li>
+        </ul>
+        <p>Includes full UI theming, editor color schemes with Go-specific highlighting,
+        terminal ANSI colors, diff and VCS colors.</p>
+        <p>Ships with the <a href="https://commitmono.com">Commit Mono</a> coding font
+        (SIL OFL 1.1) with ligatures enabled, registered automatically and selected
+        as the editor font on first run.</p>
+    ]]></description>
+    <change-notes><![CDATA[
+        <b>1.0.0</b>
+        <ul>
+            <li>Initial release with Nova Dark and Nova Light variants.</li>
+            <li>Built on the Islands UI (2025.2+).</li>
+        </ul>
+    ]]></change-notes>
+    <depends>com.intellij.modules.platform</depends>
+    <idea-version since-build="252"/>
+    <extensions defaultExtensionNs="com.intellij">
+        <themeProvider id="com.victoragudo.nova.theme.dark" path="/themes/NovaDark.theme.json"/>
+        <themeProvider id="com.victoragudo.nova.theme.light" path="/themes/NovaLight.theme.json"/>
+    </extensions>
+    <applicationListeners>
+        <listener class="com.victoragudo.nova.NovaFontRegistrar" topic="com.intellij.ide.AppLifecycleListener"/>
+    </applicationListeners>
+</idea-plugin>
