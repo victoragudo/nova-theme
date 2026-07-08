@@ -35,10 +35,11 @@ From JetBrains Marketplace: search for "Nova Theme" in `Settings | Plugins | Mar
 
 From disk:
 
-1. Go to `Settings | Plugins`.
-2. Click the gear icon and select `Install Plugin from Disk...`.
-3. Pick `Nova-Theme-1.0.0.jar`.
-4. Restart the IDE and select `Nova Dark` or `Nova Light` under `Settings | Appearance & Behavior | Appearance | Theme`.
+1. Download the signed jar from the [latest release](https://github.com/victoragudo/nova-theme/releases/latest).
+2. Go to `Settings | Plugins`.
+3. Click the gear icon and select `Install Plugin from Disk...`.
+4. Pick the downloaded jar.
+5. Restart the IDE and select `Nova Dark` or `Nova Light` under `Settings | Appearance & Behavior | Appearance | Theme`.
 
 ## Build from source
 
