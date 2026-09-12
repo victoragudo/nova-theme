@@ -1,26 +1,55 @@
 <idea-plugin>
     <id>com.victoragudo.nova.theme</id>
     <name>Nova Theme</name>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <vendor url="https://github.com/victoragudo">Victor Agudo</vendor>
     <description><![CDATA[
-        <p><b>Nova</b> is a vibrant, space-inspired theme built for the new Islands UI.</p>
+        <p><b>Nova</b> is a vibrant, space-inspired theme built for the Islands UI and tuned for Go development.</p>
         <p>Editor and tool windows float as rounded islands over a deep-space canvas,
         while the syntax palette bursts with supernova energy: magenta keywords,
         electric cyan variables, nebula purple types, star gold functions and
         aurora green strings.</p>
+        <p>Six variants:</p>
         <ul>
             <li><b>Nova Dark</b>: deep-space navy islands over a near-black cosmic canvas.</li>
             <li><b>Nova Light</b>: bright stellar islands with the same high-energy accents,
             contrast-corrected for daylight.</li>
+            <li><b>Nova Dark High Contrast</b>: pure black canvas and brighter accents for
+            high-glare screens and accessibility.</li>
+            <li><b>Nova Dim</b>: a softer, lower-contrast dark variant for long sessions.</li>
+            <li><b>Nova Dark Classic</b> and <b>Nova Light Classic</b>: the same palettes without
+            the Islands layout, for the classic New UI look.</li>
         </ul>
-        <p>Includes full UI theming, editor color schemes with Go-specific highlighting,
-        terminal ANSI colors, diff and VCS colors.</p>
+        <p>Go-specific highlighting covers struct tags, build constraints, struct versus interface
+        references, method receivers, shadowed variables, builtin values, doc comment references
+        and <code>go fix</code> syntax updates, plus Go templates.</p>
+        <p>Full IDE coverage beyond the editor: the block terminal, the profiler tool window with
+        flame graphs and CPU/memory charts, line profiling gutters, the debugger with inline values,
+        test coverage gutters, VCS file status and annotations, inlay hints, AI inline suggestions
+        and next-edit highlights, diff and merge, plus YAML, JSON, Markdown, Terraform HCL, Protobuf,
+        Docker Compose, Kubernetes, SQL, HTTP client and regular expressions.</p>
         <p>Ships with the <a href="https://commitmono.com">Commit Mono</a> coding font
-        (SIL OFL 1.1) with ligatures enabled, registered automatically and selected
-        as the editor font on first run.</p>
+        (SIL OFL 1.1) with ligatures. The font is registered automatically and offered through a
+        notification the first time a Nova scheme is active, so your editor font is never changed
+        without asking.</p>
     ]]></description>
     <change-notes><![CDATA[
+        <b>1.1.0</b>
+        <ul>
+            <li>New variants: Nova Dark High Contrast, Nova Dim, Nova Dark Classic and Nova Light Classic.</li>
+            <li>Theming for the profiler tool window: flame graphs, CPU and memory charts, line profiling gutters.</li>
+            <li>Theming for the block terminal, including its own ANSI palette, block backgrounds and error strokes.</li>
+            <li>Go highlighting extended to struct tags, build constraints, interfaces versus structs,
+            builtin variables, comment references, <code>go fix</code> syntax updates and Go templates.</li>
+            <li>Debugger, test coverage, inlay hints, breadcrumbs, bookmarks and live template colors.</li>
+            <li>AI inline suggestions, inline prompt and next-edit diff colors.</li>
+            <li>VCS file status colors, annotation stripes and merge status colors.</li>
+            <li>Language coverage for YAML, JSON, Markdown, Terraform HCL, Protobuf, Docker Compose,
+            Kubernetes, SQL, HTTP client, XML, HTML, CSS and regular expressions.</li>
+            <li>Islands compact metrics, alternative window backgrounds, badges, banners and project gradients.</li>
+            <li>The bundled Commit Mono font is now opt-in through a notification and is no longer
+            installed into the user font directory.</li>
+        </ul>
         <b>1.0.0</b>
         <ul>
             <li>Initial release with Nova Dark and Nova Light variants.</li>
@@ -32,6 +61,11 @@
     <extensions defaultExtensionNs="com.intellij">
         <themeProvider id="com.victoragudo.nova.theme.dark" path="/themes/NovaDark.theme.json"/>
         <themeProvider id="com.victoragudo.nova.theme.light" path="/themes/NovaLight.theme.json"/>
+        <themeProvider id="com.victoragudo.nova.theme.dark.high.contrast" path="/themes/NovaDarkHighContrast.theme.json"/>
+        <themeProvider id="com.victoragudo.nova.theme.dim" path="/themes/NovaDim.theme.json"/>
+        <themeProvider id="com.victoragudo.nova.theme.dark.classic" path="/themes/NovaDarkClassic.theme.json"/>
+        <themeProvider id="com.victoragudo.nova.theme.light.classic" path="/themes/NovaLightClassic.theme.json"/>
+        <notificationGroup id="Nova Theme" displayType="STICKY_BALLOON"/>
     </extensions>
     <applicationListeners>
         <listener class="com.victoragudo.nova.NovaFontRegistrar" topic="com.intellij.ide.AppLifecycleListener"/>

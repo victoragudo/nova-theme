@@ -1,7 +1,7 @@
-<scheme name="Nova Dark" version="142" parent_scheme="Darcula">
+<scheme name="Nova Dark Classic" version="142" parent_scheme="Darcula">
   <metaInfo>
     <property name="ideVersion">2026.2</property>
-    <property name="originalScheme">Nova Dark</property>
+    <property name="originalScheme">Nova Dark Classic</property>
   </metaInfo>
   <option name="EDITOR_FONT_NAME" value="CommitMono"/>
   <option name="EDITOR_LIGATURES" value="true"/>
