@@ -50,7 +50,7 @@
             <li>The bundled Commit Mono font is now opt-in through a notification and is no longer
             installed into the user font directory.</li>
         </ul>
-        <b>1.0.0</b>
+        <b>1.0.1</b>
         <ul>
             <li>Initial release with Nova Dark and Nova Light variants.</li>
             <li>Built on the Islands UI (2025.2+).</li>
