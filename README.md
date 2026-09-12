@@ -81,6 +81,16 @@ python3 tools/validate_themes.py [path/to/IDE]       # check every key against a
 python3 tools/build_plugin.py [path/to/IDE]          # compile the listener and package the jar
 ```
 
+Sign the jar for the Marketplace with the [JetBrains zip signer](https://github.com/JetBrains/marketplace-zip-signer), using the certificate and key in `signing/`:
+
+```bash
+java -jar marketplace-zip-signer-cli.jar sign \
+  -in Nova-Theme-<version>.jar -out Nova-Theme-<version>-signed.jar \
+  -cert-file signing/nova-chain.crt -key-file signing/nova-private.pem
+java -jar marketplace-zip-signer-cli.jar verify \
+  -in Nova-Theme-<version>-signed.jar -cert signing/nova-chain.crt
+```
+
 Both scripts default to `~/Applications/GoLand.app/Contents`. Pass the `Contents` directory of any installed 2025.2+ IDE to use a different one. `build_plugin.py` compiles `src/com/victoragudo/nova/NovaFontRegistrar.java` against the IDE jars with the bundled JBR and writes `Nova-Theme-<version>.jar` next to the sources.
 
 ## License
