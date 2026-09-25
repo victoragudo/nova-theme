@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.victoragudo.nova.theme</id>
     <name>Nova Theme</name>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <vendor url="https://github.com/victoragudo">Victor Agudo</vendor>
     <description><![CDATA[
         <p><b>Nova</b> is a vibrant, space-inspired theme built for the Islands UI and tuned for Go development.</p>
@@ -32,8 +32,28 @@
         (SIL OFL 1.1) with ligatures. The font is registered automatically and offered through a
         notification the first time a Nova scheme is active, so your editor font is never changed
         without asking.</p>
+        <p><b>AI Lens</b> shows which code was written by AI and whether you have reviewed it:</p>
+        <ul>
+            <li>Lines inserted by AI assistants in the IDE and files rewritten on disk by external agents
+            get a tinted background and a gutter bar in Nova magenta.</li>
+            <li>Lines turn reviewed as the caret rests on them, or through the Code menu. The status bar
+            counts what is left and jumps to the next block, and the commit dialog asks before
+            committing unreviewed AI code.</li>
+            <li>Lines whose last commit carries an AI co-author trailer, such as
+            <code>Co-Authored-By: Claude</code>, are marked with a dashed gutter bar.</li>
+        </ul>
+        <p>AI Lens colors can be customized under <i>Editor | Color Scheme | Nova AI Lens</i> and its behavior
+        under <i>Tools | Nova AI Lens</i>.</p>
     ]]></description>
     <change-notes><![CDATA[
+        <b>1.2.0</b>
+        <ul>
+            <li>AI Lens: highlight code written by AI assistants in the IDE and by external agents that change
+            files on disk.</li>
+            <li>Review tracking for AI-written lines, with a status bar counter, next and previous navigation
+            and a confirmation before committing unreviewed AI code.</li>
+            <li>Highlight lines that come from commits with an AI co-author trailer.</li>
+        </ul>
         <b>1.1.0</b>
         <ul>
             <li>New variants: Nova Dark High Contrast, Nova Dim, Nova Dark Classic and Nova Light Classic.</li>
@@ -57,6 +77,7 @@
         </ul>
     ]]></change-notes>
     <depends>com.intellij.modules.platform</depends>
+    <depends optional="true" config-file="nova-vcs.xml">com.intellij.modules.vcs</depends>
     <idea-version since-build="252"/>
     <extensions defaultExtensionNs="com.intellij">
         <themeProvider id="com.victoragudo.nova.theme.dark" path="/themes/NovaDark.theme.json"/>
@@ -66,8 +87,46 @@
         <themeProvider id="com.victoragudo.nova.theme.dark.classic" path="/themes/NovaDarkClassic.theme.json"/>
         <themeProvider id="com.victoragudo.nova.theme.light.classic" path="/themes/NovaLightClassic.theme.json"/>
         <notificationGroup id="Nova Theme" displayType="STICKY_BALLOON"/>
+        <colorSettingsPage implementation="com.victoragudo.nova.ailens.AiLensColorSettingsPage"/>
+        <additionalTextAttributes scheme="Default" file="colorSchemes/NovaAiLensDefault.xml"/>
+        <additionalTextAttributes scheme="Darcula" file="colorSchemes/NovaAiLensDarcula.xml"/>
+        <applicationConfigurable parentId="tools" instance="com.victoragudo.nova.ailens.AiLensConfigurable"
+                                 id="com.victoragudo.nova.ailens" displayName="Nova AI Lens"/>
+        <statusBarWidgetFactory id="NovaAiLens" implementation="com.victoragudo.nova.ailens.AiLensWidgetFactory"/>
     </extensions>
+    <actions>
+        <group id="Nova.AiLens" text="Nova AI Lens" popup="true">
+            <action id="Nova.AiLens.MarkReviewed" class="com.victoragudo.nova.ailens.AiLensActions$MarkReviewed"
+                    text="Mark AI Lines as Reviewed"
+                    description="Mark the selected AI-written lines, or the AI block at the caret, as reviewed"/>
+            <action id="Nova.AiLens.MarkFileReviewed" class="com.victoragudo.nova.ailens.AiLensActions$MarkFileReviewed"
+                    text="Mark All AI Lines in File as Reviewed"/>
+            <action id="Nova.AiLens.NextUnreviewed" class="com.victoragudo.nova.ailens.AiLensActions$NextUnreviewed"
+                    text="Next Unreviewed AI Lines"/>
+            <action id="Nova.AiLens.PreviousUnreviewed" class="com.victoragudo.nova.ailens.AiLensActions$PreviousUnreviewed"
+                    text="Previous Unreviewed AI Lines"/>
+            <separator/>
+            <action id="Nova.AiLens.MarkAiWritten" class="com.victoragudo.nova.ailens.AiLensActions$MarkAiWritten"
+                    text="Mark Lines as AI-Written"
+                    description="Track the selected lines as AI-written code that needs review"/>
+            <action id="Nova.AiLens.ClearFile" class="com.victoragudo.nova.ailens.AiLensActions$ClearFile"
+                    text="Clear AI Marks in File"/>
+            <separator/>
+            <action id="Nova.AiLens.ToggleCommitLens" class="com.victoragudo.nova.ailens.AiLensActions$ToggleCommitLens"
+                    text="Highlight AI-Assisted Commits"
+                    description="Highlight lines whose last commit carries an AI co-author trailer"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="CodeMenu" anchor="last"/>
+        </group>
+    </actions>
     <applicationListeners>
         <listener class="com.victoragudo.nova.NovaFontRegistrar" topic="com.intellij.ide.AppLifecycleListener"/>
+        <listener class="com.victoragudo.nova.ailens.AiActionWatcher" topic="com.intellij.openapi.actionSystem.ex.AnActionListener"/>
+        <listener class="com.victoragudo.nova.ailens.AiActionWatcher" topic="com.intellij.openapi.command.CommandListener"/>
+        <listener class="com.victoragudo.nova.ailens.AiReloadWatcher" topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"/>
+        <listener class="com.victoragudo.nova.ailens.AiReloadWatcher" topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
     </applicationListeners>
+    <projectListeners>
+        <listener class="com.victoragudo.nova.ailens.AiEditorOpenWatcher" topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+    </projectListeners>
 </idea-plugin>

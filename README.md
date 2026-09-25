@@ -37,6 +37,16 @@ Beyond the editor and the tool windows, Nova colors the parts of the IDE that mo
 - **Editor extras**: inlay hints, breadcrumbs, bookmarks, TODO, typos and grammar, deprecation, live templates, rainbow brackets and search result highlighting.
 - **Languages**: YAML, JSON, Markdown, Terraform HCL, Protobuf, Docker Compose, Kubernetes, SQL, HTTP client, XML, HTML, CSS, properties and regular expressions.
 
+## AI Lens
+
+Nova marks the code that AI wrote, so you can see what still needs a human review.
+
+- **Live tracking**: lines inserted by AI assistants in the IDE (inline completion, Copilot, JetBrains AI and similar) and files rewritten on disk by external agents such as Claude Code get a tinted background and a magenta gutter bar. Files an agent changes while they are closed in the IDE are compared with their previous content and marked the next time you open them. Git operations such as checkouts and pulls, and refreshes that touch many files at once, are ignored.
+- **Review state**: a line turns reviewed when the caret rests on it, or when you use *Code | Nova AI Lens | Mark AI Lines as Reviewed*. The status bar shows how many lines are left and jumps to the next block when clicked, and the commit dialog asks before committing unreviewed AI code.
+- **AI commits**: lines whose last commit carries an AI co-author trailer, such as `Co-Authored-By: Claude`, get a dashed purple gutter bar. The trailer pattern is configurable.
+
+Tracking survives IDE restarts and is stored in the project workspace file, never in the repository. Colors are under *Settings | Editor | Color Scheme | Nova AI Lens* and behavior under *Settings | Tools | Nova AI Lens*.
+
 ## Bundled font
 
 Nova ships with [Commit Mono](https://commitmono.com) (SIL OFL 1.1), a neutral coding font with smart kerning and ligatures. The font is registered with the IDE at startup, and the first time a Nova color scheme is active the plugin offers it through a notification. Nothing is installed into your system font directory and your editor font is never changed without asking.

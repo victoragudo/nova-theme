@@ -10,6 +10,7 @@ import ui_keys
 
 ROOT = Path(__file__).resolve().parent.parent
 THEMES = ROOT / "themes"
+COLOR_SCHEMES = ROOT / "colorSchemes"
 SCHEME_VERSION = "142"
 IDE_VERSION = "2026.2"
 FONT_FAMILY = "CommitMono"
@@ -62,6 +63,34 @@ VARIANTS = [
 ]
 
 
+AI_LENS_FALLBACKS = [
+    {"file": "NovaAiLensDefault", "palette": palette.LIGHT, "background": "#FFFFFF"},
+    {"file": "NovaAiLensDarcula", "palette": palette.DARK, "background": "#2B2B2B"},
+]
+
+
+def attribute_lines(options_by_name, indent):
+    lines = []
+    for name, options in options_by_name.items():
+        if not options:
+            continue
+        lines.append(f'{indent}<option name="{name}">')
+        lines.append(f"{indent}  <value>")
+        for option, value in options.items():
+            lines.append(f'{indent}    <option name="{option}" value="{value}"/>')
+        lines.append(f"{indent}  </value>")
+        lines.append(f"{indent}</option>")
+    return lines
+
+
+def additional_attributes_document(fallback):
+    options = scheme_keys.ai_lens_attributes(fallback["palette"], fallback["background"])
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>', "<list>"]
+    lines.extend(attribute_lines(options, "  "))
+    lines.append("</list>")
+    return "\n".join(lines) + "\n"
+
+
 def scheme_document(p, scheme_name):
     parent_scheme = "Darcula" if p["dark"] else "Default"
     lines = [
@@ -80,15 +109,7 @@ def scheme_document(p, scheme_name):
         lines.append(f'    <option name="{name}" value="{value.lstrip("#").lower()}"/>')
     lines.append("  </colors>")
     lines.append("  <attributes>")
-    for name, options in scheme_keys.attributes(p).items():
-        if not options:
-            continue
-        lines.append(f'    <option name="{name}">')
-        lines.append("      <value>")
-        for option, value in options.items():
-            lines.append(f'        <option name="{option}" value="{value}"/>')
-        lines.append("      </value>")
-        lines.append("    </option>")
+    lines.extend(attribute_lines(scheme_keys.attributes(p), "    "))
     lines.append("  </attributes>")
     lines.append("</scheme>")
     return "\n".join(lines) + "\n"
@@ -119,6 +140,11 @@ def main():
     for file_name, (p, scheme_name) in schemes.items():
         target = THEMES / f"{file_name}.xml"
         target.write_text(scheme_document(p, scheme_name))
+        written.append(target)
+    COLOR_SCHEMES.mkdir(exist_ok=True)
+    for fallback in AI_LENS_FALLBACKS:
+        target = COLOR_SCHEMES / f"{fallback['file']}.xml"
+        target.write_text(additional_attributes_document(fallback))
         written.append(target)
     for target in written:
         print(target.relative_to(ROOT))

@@ -2515,5 +2515,21 @@
         <option name="FOREGROUND" value="ffcc70"/>
       </value>
     </option>
+    <option name="NOVA_AI_UNREVIEWED">
+      <value>
+        <option name="BACKGROUND" value="221627"/>
+        <option name="ERROR_STRIPE_COLOR" value="ff6fb0"/>
+      </value>
+    </option>
+    <option name="NOVA_AI_REVIEWED">
+      <value>
+        <option name="ERROR_STRIPE_COLOR" value="5086a3"/>
+      </value>
+    </option>
+    <option name="NOVA_AI_COMMITTED">
+      <value>
+        <option name="ERROR_STRIPE_COLOR" value="926cc5"/>
+      </value>
+    </option>
   </attributes>
 </scheme>
