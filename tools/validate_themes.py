@@ -10,6 +10,7 @@ THEMES = ROOT / "themes"
 CACHE = Path("/tmp/nova-theme-known-keys.json")
 
 LEGACY_KEYS = {"GO_TYPE_PARAMETER", "GO_STRING_FORMAT_SPECIFIER", "Component.background"}
+PLUGIN_SCHEME_KEYS = {"NOVA_AI_UNREVIEWED", "NOVA_AI_REVIEWED", "NOVA_AI_COMMITTED"}
 
 SCAN_JARS = [
     "lib/intellij.platform.core.jar",
@@ -122,6 +123,7 @@ def main():
     known_scheme = scheme_keys(ide)
     tokens = scan_tokens(ide)
     known_scheme.update(tokens)
+    known_scheme.update(PLUGIN_SCHEME_KEYS)
     known_ui.update(normalize(token) for token in tokens)
 
     unknown_ui = {}

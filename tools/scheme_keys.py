@@ -654,8 +654,19 @@ def language_attributes(p):
     return attributes
 
 
+def ai_lens_attributes(p, editor_background=None):
+    background = editor_background or p["island"]
+    tint = 0.10 if p["dark"] else 0.07
+    return {
+        "NOVA_AI_UNREVIEWED": style(background=mix(background, p["magenta"], tint), stripe=p["magenta"]),
+        "NOVA_AI_REVIEWED": style(stripe=mix(background, p["cyan"], 0.6)),
+        "NOVA_AI_COMMITTED": style(stripe=mix(background, p["purple"], 0.75)),
+    }
+
+
 def attributes(p):
     merged = base_attributes(p)
     merged.update(go_attributes(p))
     merged.update(language_attributes(p))
+    merged.update(ai_lens_attributes(p))
     return merged

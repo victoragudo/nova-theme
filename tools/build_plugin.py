@@ -8,7 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CLASSES = ROOT / "classes"
-SOURCE = ROOT / "src/com/victoragudo/nova/NovaFontRegistrar.java"
+SOURCES = ROOT / "src"
+DESCRIPTORS = ["plugin.xml", "nova-vcs.xml", "pluginIcon.svg", "pluginIcon_dark.svg"]
 DEFAULT_IDE = Path.home() / "Applications/GoLand.app/Contents"
 
 
@@ -36,21 +37,23 @@ def compile_sources(ide):
             str(ide / "lib" / "*"),
             "-d",
             str(CLASSES),
-            str(SOURCE),
+            *sorted(str(source) for source in SOURCES.rglob("*.java")),
         ],
         check=True,
     )
 
 
 def entries():
-    yield "META-INF/plugin.xml", ROOT / "META-INF/plugin.xml"
-    yield "META-INF/pluginIcon.svg", ROOT / "META-INF/pluginIcon.svg"
-    yield "META-INF/pluginIcon_dark.svg", ROOT / "META-INF/pluginIcon_dark.svg"
+    for descriptor in DESCRIPTORS:
+        yield f"META-INF/{descriptor}", ROOT / "META-INF" / descriptor
     for theme in sorted((ROOT / "themes").glob("*.theme.json")):
         yield f"themes/{theme.name}", theme
     for scheme in sorted((ROOT / "themes").glob("*.xml")):
         yield f"themes/{scheme.name}", scheme
-    yield "com/victoragudo/nova/NovaFontRegistrar.class", CLASSES / "com/victoragudo/nova/NovaFontRegistrar.class"
+    for compiled in sorted(CLASSES.rglob("*.class")):
+        yield compiled.relative_to(CLASSES).as_posix(), compiled
+    for attributes in sorted((ROOT / "colorSchemes").glob("*.xml")):
+        yield f"colorSchemes/{attributes.name}", attributes
     for font in sorted((ROOT / "fonts").iterdir()):
         yield f"fonts/{font.name}", font
 

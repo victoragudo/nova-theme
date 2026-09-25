@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <option name="NOVA_AI_UNREVIEWED">
+    <value>
+      <option name="BACKGROUND" value="fcf0f6"/>
+      <option name="ERROR_STRIPE_COLOR" value="d6247a"/>
+    </value>
+  </option>
+  <option name="NOVA_AI_REVIEWED">
+    <value>
+      <option name="ERROR_STRIPE_COLOR" value="6caede"/>
+    </value>
+  </option>
+  <option name="NOVA_AI_COMMITTED">
+    <value>
+      <option name="ERROR_STRIPE_COLOR" value="9d6bf2"/>
+    </value>
+  </option>
+</list>
